@@ -1,17 +1,21 @@
-# Sales App
+# Month Management App
 
 ## 📄 Description
-This project demonstrates the implementation of a simple sales system in Java. It includes key concepts like exception handling, object-oriented programming (OOP), and the use of collections. The app handles products and calculates the total price of a sale, ensuring no sales are processed without products.
+This project implements a simple Java application to manage months of the year. It demonstrates the use of collections (`ArrayList` and `HashSet`), custom insertion logic, and different ways to traverse data structures. The application ensures the correct handling of duplicates and maintains the order of months.
 
 ### Functionality
-1. **Classes:**
-   - `Product`: Represents individual products with attributes such as `id`, `name`, and `price`.
-   - `Sale`: Manages a list of products, calculates the total price, and throws a custom exception if the sale is empty.
-   - `VendaBuidaException`: A custom exception that prevents processing an empty sale.
-2. **Methods:**
-   - `addProduct(Product product)`: Adds a product to the sale.
-   - `calculateTotal()`: Calculates the total price of the sale. Throws `VendaBuidaException` if the sale has no products.
-   - `showProducts()`: Displays all products in the sale.
+1. **Core Features:**
+   - Add 11 months to an `ArrayList`, excluding "Agost."
+   - Insert "Agost" in its correct position within the `ArrayList`.
+   - Convert the `ArrayList` to a `HashSet` to ensure uniqueness of elements.
+   - Traverse the `ArrayList` using a `for` loop and a `for-each` loop.
+   - Traverse the `HashSet` using an `Iterator`.
+
+2. **Menu Options:**
+   - Display all months in the `ArrayList`.
+   - Insert "Agost" in its proper position.
+   - Convert the `ArrayList` into a `HashSet` and display its content.
+   - Exit the program.
 
 ---
 
