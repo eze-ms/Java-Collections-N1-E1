@@ -5,25 +5,24 @@ import java.util.Scanner;
 
 public class MonthApp {
     public static void main(String[] args) {
-        Scanner consola = new Scanner(System.in);
 
         List<Month> monthList = Month.createMonthList();
 
-        var exit = false;
+        try (Scanner consola = new Scanner(System.in)) {
+            boolean exit = false;
 
-        while (!exit) {
-            showMenu();
-            try {
-                exit = executeOption(consola, monthList);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number corresponding to an option.");
-            } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+            while (!exit) {
+                showMenu();
+                try {
+                    exit = executeOption(consola, monthList);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number between 1 and 4.");
+                } catch (Exception e) {
+                    System.out.println("An unexpected error occurred: " + e.getMessage());
+                }
+                System.out.println();
             }
-            System.out.println();
         }
-
-        consola.close();
     }
 
     private static void showMenu() {
@@ -42,17 +41,17 @@ public class MonthApp {
 
     private static boolean executeOption(Scanner consola, List<Month> monthList) {
         boolean exit = false;
+        boolean found = false;
 
         try {
-            var option = Integer.parseInt(consola.nextLine()); // Manejar la entrada del usuario
-
+            int option = Integer.parseInt(consola.nextLine());
             switch (option) {
                 case 1 -> {
                     System.out.println("Month List (using for-each):");
                     if (monthList.isEmpty()) {
                         System.out.println("There are no months in the list.");
                     } else {
-                        monthList.forEach(System.out::println); // Uso de for-each
+                        monthList.forEach(System.out::println);
                         System.out.println("\nMonth List (using classic for loop):");
                         for (int i = 0; i < monthList.size(); i++) {
                             System.out.println("Month at index " + i + ": " + monthList.get(i).getName());
@@ -60,11 +59,18 @@ public class MonthApp {
                     }
                 }
                 case 2 -> {
-                    if (monthList.stream().noneMatch(month -> "Agost".equals(month.getName()))) {
+                    for (Month month : monthList) {
+                        if ("Agost".equals(month.getName())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
                         monthList.add(7, new Month("Agost"));
-                        System.out.println("\"Agost\" has been inserted in its correct position.");
+                        // Mensaje claro si "Agost" fue agregado
+                        System.out.println("\"Agost\" has been added in its correct position.");
                     } else {
-                        System.out.println("\"Agost\" is already on the list.");
+                        System.out.println("\"Agost\" is already in the list.");
                     }
                 }
                 case 3 -> {
@@ -84,7 +90,9 @@ public class MonthApp {
                     System.out.println("See you soon!");
                     exit = true;
                 }
-                default -> System.out.println("Wrong option: " + option);
+                default -> {
+                    System.out.println("Option not recognized. Please choose a valid option from the menu.");
+                }
             }
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Invalid input: Please enter a valid numeric option.");

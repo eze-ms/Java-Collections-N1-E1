@@ -6,18 +6,15 @@ public class Month {
     private String name;
     private static int numberMonth = 0;
 
-
     public Month() {
         this.id = ++Month.numberMonth;
     }
-
 
     public Month(String name) {
         this();
         this.name = name;
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -35,7 +32,18 @@ public class Month {
         return name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Month month = (Month) obj;
+        return name.equals(month.name);
+    }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 
     public static List<Month> createMonthList() {
         List<Month> months = new ArrayList<>();
@@ -50,6 +58,7 @@ public class Month {
         months.add(new Month("October"));
         months.add(new Month("November"));
         months.add(new Month("December"));
+
         return months;
     }
 }
